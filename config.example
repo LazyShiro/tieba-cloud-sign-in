@@ -1,0 +1,9 @@
+{
+    "email":
+    {
+        "sender_name":"发件人昵称",
+        "email_address":"邮箱地址（你自己的）",
+        "auth_code":"授权码",
+        "email_title":"邮件标题"
+    }
+}
