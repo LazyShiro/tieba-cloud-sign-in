@@ -187,7 +187,7 @@ function sign($bar, $account, $tbs)
  */
 function notify($email, $failLogName)
 {
-	if (filesize($failLogName) !== 0) {
+	if (filesize($failLogName) !== 0 && !empty($email)) {
 		$config = config('email');
 
 		$mail = new PHPMailer();

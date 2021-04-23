@@ -12,3 +12,13 @@
 4. 完善account
 5. 完善config
 7. 创建一个定时任务每天执行 'index.php -aexec'
+
+#### 注意
+
+1. account内邮箱不填写则无提醒
+2. 定时任务后接参数 -a是固定的 exec可以在config中entrance.key更改
+
+#### 感谢（不分先后）
+
+* [AutoCloudSign](https://github.com/XcantloadX/AutoCloudSign) 提供了初期设计思路
+* [TiebaSignIn](https://github.com/lqbby/TiebaSignIn) 提供了sign算法
