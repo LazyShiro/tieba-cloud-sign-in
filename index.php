@@ -28,10 +28,8 @@ $db = file_get_contents("account");
 $accountList = json_decode($db, true);
 //遍历每个账号
 foreach ($accountList as $key => $account) {
-	if ($key === 0) {
-		//开始签到
-		startSign($account);
-	}
+	//开始签到
+	startSign($account);
 }
 
 exit('done');

@@ -91,8 +91,8 @@ function startSign($account)
 			file_put_contents($failLogName, "$name--- {$bar['forum_name']} 吧 {$result['error_msg']}" . PHP_EOL, FILE_APPEND | LOCK_EX);
 		} else {
 			$signed++;
-			var_dump("$name--- {$bar['forum_name']} 吧 签到成功 今日本吧第{$result['user_sign_rank']}个签到");
-			file_put_contents($successLogName, "$name--- {$bar['forum_name']} 吧 签到成功 今日本吧第{$result['user_sign_rank']}个签到" . PHP_EOL, FILE_APPEND | LOCK_EX);
+			var_dump("$name--- {$bar['forum_name']} 吧 签到成功 今日本吧第{$result['user_info']['user_sign_rank']}个签到");
+			file_put_contents($successLogName, "$name--- {$bar['forum_name']} 吧 签到成功 今日本吧第{$result['user_info']['user_sign_rank']}个签到" . PHP_EOL, FILE_APPEND | LOCK_EX);
 		}
 
 		//签到频率1秒
