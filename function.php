@@ -41,6 +41,25 @@ function dump(...$vars)
 }
 
 /**
+ * 获取配置项
+ *
+ * @param string $name
+ *
+ * @return mixed
+ */
+function config($name = '')
+{
+	$config = json_decode(file_get_contents('config'), true);
+	if (!empty($name)) {
+		$configHierarchy = explode('.', $name);
+		foreach ($configHierarchy as $value) {
+			$config = $config[$value];
+		}
+	}
+	return $config;
+}
+
+/**
  * 单用户签到所有贴吧
  *
  * @param $account
@@ -169,7 +188,7 @@ function sign($bar, $account, $tbs)
 function notify($email, $failLogName)
 {
 	if (filesize($failLogName) !== 0) {
-		$config = json_decode(file_get_contents('config'), true);
+		$config = config('email');
 
 		$mail = new PHPMailer();
 		// 是否启用smtp的debug进行调试 开发环境建议开启 生产环境注释掉即可 默认关闭debug调试模式
@@ -187,13 +206,13 @@ function notify($email, $failLogName)
 		// 设置发送的邮件的编码
 		$mail->CharSet = 'UTF-8';
 		// 设置发件人昵称 显示在收件人邮件的发件人邮箱地址前的发件人姓名
-		$mail->FromName = $config['email']['sender_name'];
+		$mail->FromName = $config['sender_name'];
 		// smtp登录的账号 QQ邮箱即可
-		$mail->Username = $config['email']['email_address'];
+		$mail->Username = $config['email_address'];
 		// smtp登录的密码 第一步中qq邮箱生成的授权码
-		$mail->Password = $config['email']['auth_code'];
+		$mail->Password = $config['auth_code'];
 		// 设置发件人邮箱地址 同登录账号
-		$mail->From = $config['email']['email_address'];
+		$mail->From = $config['email_address'];
 		// 邮件正文是否为html编码 注意此处是一个方法
 		$mail->isHTML(true);
 		// 设置收件人邮箱地址
@@ -201,7 +220,7 @@ function notify($email, $failLogName)
 		// 添加多个收件人 则多次调用方法即可
 		//$mail->addAddress('18365989898@163.com');
 		// 添加该邮件的主题
-		$mail->Subject = $config['email']['email_title'];
+		$mail->Subject = $config['email_title'];
 		// 添加邮件正文
 		$mail->Body = str_replace(PHP_EOL, '<br />', file_get_contents($failLogName));
 		// 为该邮件添加附件

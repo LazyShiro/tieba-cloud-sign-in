@@ -10,7 +10,7 @@ if (is_cli()) {
 
 @$appStatus = $opt['a'];
 
-if (empty($appStatus) || $appStatus !== 'exec') {
+if (empty($appStatus) || $appStatus !== config('entrance.key')) {
 	echo '.';
 	sleep(1);
 	echo '.';
