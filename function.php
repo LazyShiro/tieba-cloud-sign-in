@@ -187,7 +187,7 @@ function sign($bar, $account, $tbs)
  */
 function notify($email, $failLogName)
 {
-	if (filesize($failLogName) !== 0 && !empty($email)) {
+	if (!empty($email)) {
 		$config = config('email');
 
 		$mail = new PHPMailer();
@@ -221,8 +221,16 @@ function notify($email, $failLogName)
 		//$mail->addAddress('18365989898@163.com');
 		// 添加该邮件的主题
 		$mail->Subject = $config['email_title'];
-		// 添加邮件正文
-		$mail->Body = str_replace(PHP_EOL, '<br />', file_get_contents($failLogName));
+
+		//有错误日志则发送错误日志，反之则发送成功日志
+		if (filesize($failLogName) !== 0) {
+			// 添加邮件正文
+			$mail->Body = str_replace(PHP_EOL, '<br />', file_get_contents($failLogName));
+		} else {
+			// 添加邮件正文
+			$mail->Body = "您的贴吧已经全部签到完成！";
+		}
+
 		// 为该邮件添加附件
 		//$mail->addAttachment('./example.pdf');
 		// 发送邮件 返回状态
